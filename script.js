@@ -4,9 +4,20 @@ const API_KEY = "&apiKey=4621ff63fd07461d9897baef85f6b191";
 window.addEventListener("load", () => getNews("India"));
 
 async function getNews(query) {
-    const response = await fetch(url + query + API_KEY);
-    const data = await response.json();
-    bindData(data.articles);
+    try {
+        const response = await fetch(url + query + API_KEY);
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        if (data.articles && data.articles.length > 0) {
+            bindData(data.articles);
+        } else {
+            throw new Error('No articles found in the response');
+        }
+    } catch (error) {
+        console.error('Error fetching or processing data:', error);
+    }
 }
 
 function bindData(articles){
