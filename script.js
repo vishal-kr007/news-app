@@ -16,7 +16,7 @@ async function getNews(query) {
             throw new Error('No articles found in the response');
         }
     } catch (error) {
-        console.error('Error fetching or processing data:', error);
+        console.error('Error fetching or processing datas:', error);
     }
 }
 
